@@ -40,6 +40,12 @@ def decrement(line,a):
                 stacks.append(0)
             stacks[a] -= 1
             
+def copy(line,a,b):
+    try:
+        stacks[b] = stacks[a]
+    except:
+        print "error"
+            
 def test(line,a,b):
     global line_num
     try:
@@ -74,6 +80,8 @@ def run():
             test(command[0],command[2],command[3])
         elif command[1] == "got":
             goto(command[0],command[2])
+        elif command[1] == "cop":
+            copy(command[0],command[2],command[3])
         else:
             error_log.append("error at line |"+str(command[0])+"| Command not found: " + str(command[1]))
         
@@ -82,15 +90,7 @@ def run():
     
 """This is the area where test programs are written does not change the function of the machine """
 
-stacks = [6,0,0]
 
-
-
-command_list.append((0,"dec",0))
-command_list.append((1,"inc",1))
-command_list.append((2,"tes",0,4))
-command_list.append((3,"got",0))
-command_list.append((4,"inc",2))
 
 
 
