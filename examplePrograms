@@ -1,0 +1,6 @@
+"""this program adds stacks one and two and puts the result in stack one. then increments stack zero when finished."""
+command_list.append((0,"dec",2))
+command_list.append((1,"inc",1))
+command_list.append((2,"tes",2,4))
+command_list.append((3,"got",0))
+command_list.append((4,"inc",0))
