@@ -10,12 +10,13 @@ stacks = []
 """holds the index of the current line being run"""
 line_num = 0
 
+"""this function halts the code because an error has occured"""
 def halt_code(line):
     global line_num
     line_num = len(command_list)
     error_log.append("CODE HALTED FOR FATAL ERROR AT LINE |" + str(line) + "| ")
     
-
+"""the increment function. increments stack a"""
 def increment(line,a):
     try:
         stacks[a] += 1
@@ -26,6 +27,7 @@ def increment(line,a):
                 stacks.append(0)
             stacks[a] += 1
             
+"""the decrement function. decrements stack a if a is greater then zero."""
 def decrement(line,a):
     try:
         stacks[a] -= 1
@@ -40,12 +42,22 @@ def decrement(line,a):
                 stacks.append(0)
             stacks[a] -= 1
             
+"""the copy function. copys the contents of stack a into stack b"""
 def copy(line,a,b):
     try:
         stacks[b] = stacks[a]
     except:
-        print "error"
-            
+        if len(stacks) <= a:
+            error_log.append("error at line |"+str(line)+"| tried to copy from stack that didnt exist. stack:"+str(a))
+            while len(stacks) <= a:
+                stacks.append(0)
+        if len(stacks) <= b:
+            error_log.append("error at line |"+str(line)+"| tried to copy to stack that didnt exist. stack:"+str(b))
+            while len(stacks) <= b:
+                stacks.append(0)
+        stacks[b] = stacks[a]
+
+"""the test function. if stack a is = to zero then goto line b."""
 def test(line,a,b):
     global line_num
     try:
@@ -60,13 +72,12 @@ def test(line,a,b):
                 stacks.append(0)
         line_num = b-1
             
-            
+"""the goto function. goto line a."""
 def goto(line,a):
     global line_num
     line_num = a-1
     
-
-
+"""the run function. go's through all the commands in command_list and runs them."""
 def run():
     global line_num
     while line_num < len(command_list):
@@ -94,10 +105,14 @@ def run():
 
 
 
+""""-----------------------------------the test area has finished.------------------------------"""
 
+"""the code that runs the program and prints all errors"""
 run()
 print stacks
 for error in error_log:
     print error
+
+
 
 
